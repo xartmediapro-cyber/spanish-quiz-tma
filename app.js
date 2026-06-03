@@ -220,6 +220,7 @@ const resultTitle = document.getElementById('result-title');
 const resultDescription = document.getElementById('result-description');
 const gaugeFill = document.getElementById('gauge-fill');
 const ctaActionTrigger = document.querySelector('.cta-action-trigger');
+const telegramChannelTrigger = document.querySelector('.telegram-channel-trigger');
 const restartQuizTrigger = document.querySelector('.restart-quiz-trigger');
 
 // Navigation Utilities
@@ -425,6 +426,17 @@ ctaActionTrigger.addEventListener('click', () => {
     sendLog('cta_click'); // Log CTA registration click
     const textParam = encodeURIComponent("Я хочу записаться к вам на урок испанского языка");
     const targetUrl = `https://t.me/sofi_spain?text=${textParam}`;
+    if (tg) {
+        tg.openTelegramLink(targetUrl); 
+    } else {
+        window.open(targetUrl, '_blank');
+    }
+});
+
+// Telegram Channel Button
+telegramChannelTrigger.addEventListener('click', () => {
+    sendLog('telegram_channel_click'); // Log Telegram channel click event
+    const targetUrl = 'https://t.me/lazy_spanish';
     if (tg) {
         tg.openTelegramLink(targetUrl); 
     } else {
