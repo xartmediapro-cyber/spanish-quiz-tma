@@ -294,7 +294,9 @@ function startQuiz() {
 function renderQuestion() {
     const q = currentQuestions[currentQuestionIndex];
     
-    questionLevel.textContent = q.level;
+    if (questionLevel) {
+        questionLevel.textContent = q.level;
+    }
     questionCounter.textContent = `${padZero(currentQuestionIndex + 1)} / ${padZero(currentQuestions.length)}`;
     
     const progressPercent = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
