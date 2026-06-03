@@ -466,8 +466,8 @@ body, html {
 }
 
 .btn-back {
-    background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
     color: var(--text-white);
     width: 48px;
     height: 48px;
@@ -477,10 +477,12 @@ body, html {
     justify-content: center;
     cursor: pointer;
     transition: var(--transition-smooth);
+    flex-shrink: 0;
+    align-self: center;
 }
 
 .btn-back:active {
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.18);
     transform: scale(0.9);
 }
 
@@ -493,19 +495,21 @@ body, html {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
     color: var(--accent-yellow);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     transition: var(--transition-smooth);
+    flex-shrink: 0;
+    align-self: center;
 }
 
 .hint-icon:active {
     transform: scale(0.9) rotate(15deg);
-    background: rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.18);
 }
 
 .hint-icon svg {
