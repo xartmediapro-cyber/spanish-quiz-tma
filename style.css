@@ -748,4 +748,26 @@ body, html {
     0% { transform: translateY(0px) scale(1); }
     50% { transform: translateY(-6px) scale(1.08); }
     100% { transform: translateY(0px) scale(1); }
+
+
+/* --- Desktop / Laptop Adaptation (min-width: 481px) --- */
+@media (min-width: 481px) {
+    #screen-question {
+        overflow: auto; /* Allow natural scroll on PC if viewport is short */
+    }
+    .question-body {
+        overflow-y: visible; /* Disable internal scrollbar on PC */
+        padding-bottom: 20px; /* Normal bottom padding */
+        flex: none; /* Let container height fit content naturally */
+    }
+    .hint-container {
+        margin-bottom: 20px; /* Normal margin below hint button */
+    }
+    .question-footer {
+        position: static; /* Put logo below content in normal flow on PC */
+        margin-top: 24px;
+        padding-top: 10px;
+        padding-bottom: 24px;
+        pointer-events: auto;
+    }
 }
