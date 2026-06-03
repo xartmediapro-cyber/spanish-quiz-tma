@@ -1,6 +1,9 @@
 // Initialize Telegram WebApp SDK
 const tg = window.Telegram ? window.Telegram.WebApp : null;
 
+// Backend Log URL (replace with domain if configured, defaults to IP on port 3000)
+const API_URL = 'http://85.235.205.59:3000/api/log';
+
 if (tg) {
     tg.ready();
     tg.expand();
@@ -9,7 +12,71 @@ if (tg) {
     }
 }
 
-// 10 Quiz Questions with clean sentence-level paragraph breaks (both titles and options)
+// Session details for analytics
+const startTime = Date.now();
+let userProfile = {
+    userId: 'browser_user_' + Math.floor(Math.random() * 100000),
+    name: 'Browser User',
+    username: ''
+};
+
+// Populate user profile from Telegram metadata if available
+if (tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+    const u = tg.initDataUnsafe.user;
+    userProfile = {
+        userId: String(u.id),
+        name: [u.first_name, u.last_name].filter(Boolean).join(' '),
+        username: u.username || ''
+    };
+}
+
+// Send logs to backend API (fails silently in the background)
+function sendLog(event, score = null) {
+    const elapsedSeconds = Math.round((Date.now() - startTime) / 1000);
+    const payload = {
+        userId: userProfile.userId,
+        name: userProfile.name,
+        username: userProfile.username,
+        event: event,
+        timeSpent: elapsedSeconds
+    };
+    if (score !== null) {
+        payload.score = score;
+    }
+
+    // Use sendBeacon if browser is closing to ensure delivery, fallback to fetch
+    if (event === 'page_exit' && navigator.sendBeacon) {
+        navigator.sendBeacon(API_URL, JSON.stringify(payload));
+    } else {
+        fetch(API_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        }).catch(err => console.log('Analytics log failed:', err));
+    }
+}
+
+// Log initial page view
+sendLog('welcome');
+
+// Send exit log when user leaves
+function handleExit() {
+    const qIndex = currentQuestionIndex + 1;
+    const finalScore = Object.keys(userAnswers).length === 10 
+        ? Object.values(userAnswers).reduce((sum, val) => sum + val, 0) 
+        : null;
+    
+    // If they finished, they didn't drop out. Otherwise, log exit question.
+    const eventName = finalScore !== null ? 'result' : `question_${qIndex}`;
+    sendLog(eventName, finalScore);
+}
+window.addEventListener('visibilitychange', () => {
+    if (document.hidden) handleExit();
+});
+window.addEventListener('pagehide', handleExit);
+
+
+// 10 Quiz Questions with beautiful, clean 3-4 line paragraph breaks
 const quizQuestions = [
     {
         id: 1,
@@ -102,7 +169,7 @@ const quizQuestions = [
     {
         id: 9,
         level: 'Уровень 9',
-        title: 'Воскресенье, 15:00.<br>Тебе срочно нужно купить продукты, а все супермаркеты закрыты.<br>Что будешь делать?',
+        title: 'Воскресенье, 15:00.<br>Тебе срочно нужно купить продукты, а все супермаркеты закрыты. Что будешь делать?',
         options: [
             { text: 'Буду возмущаться:<br>"Как можно закрывать магазины в выходной?!"', points: 0 },
             { text: 'Приму правила игры: воскресенье — день отдыха.<br>Закажу пиццу или найду открытую лавочку у китайцев.', points: 3 },
@@ -113,7 +180,7 @@ const quizQuestions = [
     {
         id: 10,
         level: 'Уровень 10',
-        title: 'В кафе за соседним столиком люди не разговаривают, а буквально кричат, эмоционально размахивая руками.<br>Что думаешь?',
+        title: 'В кафе за соседним столиком люди не разговаривают, а буквально кричат, эмоционально размахивая руками. Что думаешь?',
         options: [
             { text: 'Они ссорятся, сейчас начнется драка. Нужно пересесть подальше.', points: 0 },
             { text: 'Они просто увлеченно обсуждают паэлью.<br>В Испании это нормальная громкость разговора.', points: 3 },
@@ -176,6 +243,7 @@ startQuizTrigger.addEventListener('click', () => {
 function startQuiz() {
     currentQuestionIndex = 0;
     userAnswers = {};
+    sendLog('start'); // Log quiz start event
     switchScreen(screenWelcome, screenQuestion);
     renderQuestion();
 }
@@ -190,7 +258,6 @@ function renderQuestion() {
     const progressPercent = ((currentQuestionIndex + 1) / currentQuestions.length) * 100;
     questionProgress.style.width = `${progressPercent}%`;
     
-    // Changed to innerHTML to render line breaks in titles
     questionTitle.innerHTML = q.title;
     
     questionOptions.innerHTML = '';
@@ -212,6 +279,9 @@ function renderQuestion() {
             optionCard.classList.add('selected');
             
             userAnswers[q.id] = opt.points;
+            
+            // Log move to next question
+            sendLog(`question_${currentQuestionIndex + 2}`);
             
             setTimeout(() => {
                 goToNextQuestion();
@@ -304,6 +374,7 @@ function finishQuiz() {
     
     switchScreen(screenQuestion, screenResults);
     animateResultScore(finalScore);
+    sendLog('result', finalScore); // Log completion with final score
     
     // Scale strokeDashoffset (Max score is 30)
     const strokeDashOffset = 251 - ((finalScore / 30) * 251);
@@ -334,7 +405,6 @@ function finishQuiz() {
     }
 }
 
-// Animate score counter
 function animateResultScore(targetScore) {
     let current = 0;
     const interval = setInterval(() => {
@@ -352,6 +422,7 @@ function animateResultScore(targetScore) {
 
 // CTA Button to sofi_spain with prefilled text
 ctaActionTrigger.addEventListener('click', () => {
+    sendLog('cta_click'); // Log CTA registration click
     const textParam = encodeURIComponent("Я хочу записаться к вам на урок испанского языка");
     const targetUrl = `https://t.me/sofi_spain?text=${textParam}`;
     if (tg) {
