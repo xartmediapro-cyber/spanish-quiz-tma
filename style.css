@@ -50,9 +50,8 @@ body, html {
 /* --- Centered Question Footer Logo --- */
 .question-logo-link {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    flex: 1;
 }
 
 .question-logo-gif {
@@ -65,7 +64,7 @@ body, html {
     cursor: pointer;
     transition: var(--transition-smooth);
     display: block;
-    margin-left: -20px; /* Shift slightly left to align the visible avatar perfectly with the container's left edge */
+    margin: 0 auto; /* Perfect centering */
 }
 
 .question-logo-gif:active {
@@ -460,13 +459,33 @@ body, html {
     box-shadow: 0 4px 12px rgba(63, 81, 181, 0.15);
 }
 
-/* Question Footer */
+/* Question Footer (Fixed/pinned at the absolute bottom center) */
 .question-footer {
+    position: absolute;
+    bottom: 8px; /* Fixed distance from the very bottom of the screen */
+    left: 0;
+    right: 0;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-top: auto;
-    padding-top: 16px;
+    z-index: 10;
+    width: 100%;
+    pointer-events: none; /* Let scroll events pass through empty space */
+}
+
+.question-logo-link {
+    pointer-events: auto; /* Re-enable clicks on the logo link */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Hint Button Container right under options cards */
+.hint-container {
+    display: flex;
+    justify-content: flex-end; /* Align the bulb to the right under the cards */
+    margin-top: 12px;
+    margin-bottom: 95px; /* Safety margin so scrolling content is not blocked by the fixed logo */
     width: 100%;
 }
 
