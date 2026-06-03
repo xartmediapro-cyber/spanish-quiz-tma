@@ -408,21 +408,25 @@ if (modalSheet) {
         startY = e.touches[0].clientY;
         currentY = startY;
         modalSheet.style.transition = 'none'; // Disable animations during drag
-    }, { passive: true });
+    }, { passive: false });
 
     modalSheet.addEventListener('touchmove', (e) => {
         currentY = e.touches[0].clientY;
         const diffY = currentY - startY;
         if (diffY > 0) {
+            // Prevent native scrolling and bouncing so finger dragging works cleanly
+            if (e.cancelable) {
+                e.preventDefault();
+            }
             modalSheet.style.transform = `translateY(${diffY}px)`; // Track finger drag down
         }
-    }, { passive: true });
+    }, { passive: false });
 
     modalSheet.addEventListener('touchend', () => {
         modalSheet.style.transition = ''; // Restore default CSS transition
         const diffY = currentY - startY;
-        if (diffY > 80) {
-            hintModal.classList.remove('active'); // Close modal if swiped down far enough
+        if (diffY > 50) {
+            hintModal.classList.remove('active'); // Close modal if swiped down far enough (50px is easier than 80px)
         }
         modalSheet.style.transform = ''; // Reset inline transform for CSS transition
         startY = 0;
