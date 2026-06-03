@@ -292,10 +292,12 @@ function renderQuestion() {
         questionOptions.appendChild(optionCard);
     });
     
-    if (currentQuestionIndex === 0) {
-        btnPrevQuestion.style.visibility = 'hidden';
-    } else {
-        btnPrevQuestion.style.visibility = 'visible';
+    if (btnPrevQuestion) {
+        if (currentQuestionIndex === 0) {
+            btnPrevQuestion.style.visibility = 'hidden';
+        } else {
+            btnPrevQuestion.style.visibility = 'visible';
+        }
     }
 }
 
@@ -309,12 +311,14 @@ function goToNextQuestion() {
     }
 }
 
-btnPrevQuestion.addEventListener('click', () => {
-    if (currentQuestionIndex > 0) {
-        currentQuestionIndex--;
-        renderQuestion();
-    }
-});
+if (btnPrevQuestion) {
+    btnPrevQuestion.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            renderQuestion();
+        }
+    });
+}
 
 function padZero(num) {
     return num < 10 ? `0${num}` : num;

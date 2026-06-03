@@ -56,14 +56,16 @@ body, html {
 }
 
 .question-logo-gif {
-    height: 140px; /* Large and highly visible */
-    width: auto;
+    width: 250px; /* Exact crop box width */
+    height: 85px; /* Shorter height to save vertical layout space */
+    object-fit: cover; /* Zooms in and crops excess top/bottom/left/right empty canvas */
+    object-position: center;
     border: none;
     background: transparent;
     cursor: pointer;
     transition: var(--transition-smooth);
     display: block;
-    margin-left: -50px; /* Shift left to crop out empty transparent space of the 16:9 canvas */
+    margin-left: -20px; /* Shift slightly left to align the visible avatar perfectly with the container's left edge */
 }
 
 .question-logo-gif:active {
