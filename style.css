@@ -387,13 +387,6 @@ body, html {
     margin-bottom: 24px;
 }
 
-.question-header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
 .level-indicator {
     font-family: var(--font-heading);
     font-size: 13px;
@@ -543,6 +536,9 @@ body, html {
 }
 
 .hint-icon {
+    position: absolute;
+    top: 16px;
+    right: 24px;
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -555,6 +551,7 @@ body, html {
     cursor: pointer;
     transition: var(--transition-smooth);
     flex-shrink: 0;
+    z-index: 100;
 }
 
 .hint-icon:active {
