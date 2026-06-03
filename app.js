@@ -451,7 +451,7 @@ function animateResultScore(targetScore) {
 // CTA Button to sofi_spain with prefilled text
 ctaActionTrigger.addEventListener('click', () => {
     sendLog('cta_click'); // Log CTA registration click
-    const textParam = encodeURIComponent("Я хочу записаться к вам на урок испанского языка");
+    const textParam = encodeURIComponent("Здравствуйте! Я хочу записаться к вам на урок испанского языка");
     const targetUrl = `https://t.me/sofi_spain?text=${textParam}`;
     if (tg) {
         tg.openTelegramLink(targetUrl); 
