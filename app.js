@@ -4,6 +4,16 @@ const tg = window.Telegram ? window.Telegram.WebApp : null;
 // Backend Log URL (replace with domain if configured, defaults to IP on port 3000)
 const API_URL = 'https://151.243.177.120.sslip.io:8444/api/log';
 
+// Helper function to open Telegram links correctly inside and outside Telegram
+function openTgLink(url) {
+    const isInsideTelegram = tg && tg.platform && tg.platform !== 'unknown';
+    if (isInsideTelegram) {
+        tg.openTelegramLink(url);
+    } else {
+        window.open(url, '_blank');
+    }
+}
+
 function updatePlatformClass() {
     const desktopPlatforms = ['tdesktop', 'macos', 'web', 'weba', 'webk'];
     const isTelegramDesktop = tg && tg.platform && desktopPlatforms.includes(tg.platform);
@@ -468,23 +478,24 @@ ctaActionTrigger.addEventListener('click', () => {
     sendLog('cta_click'); // Log CTA registration click
     const textParam = encodeURIComponent("Здравствуйте! Я хочу записаться к вам на урок испанского языка");
     const targetUrl = `https://t.me/sofi_spain?text=${textParam}`;
-    if (tg) {
-        tg.openTelegramLink(targetUrl); 
-    } else {
-        window.open(targetUrl, '_blank');
-    }
+    openTgLink(targetUrl);
 });
 
 // Telegram Channel Button
 telegramChannelTrigger.addEventListener('click', () => {
     sendLog('telegram_channel_click'); // Log Telegram channel click event
     const targetUrl = 'https://t.me/lazy_spanish';
-    if (tg) {
-        tg.openTelegramLink(targetUrl); 
-    } else {
-        window.open(targetUrl, '_blank');
-    }
+    openTgLink(targetUrl);
 });
+
+// Question Footer Logo Link
+const logoLink = document.getElementById('logo-link');
+if (logoLink) {
+    logoLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        openTgLink('https://t.me/lazy_spanish');
+    });
+}
 
 restartQuizTrigger.addEventListener('click', () => {
     gaugeFill.style.strokeDashoffset = '251';
