@@ -56,13 +56,15 @@ body, html {
 }
 
 .question-logo-gif {
-    height: 120px; /* Highly visible size, perfect on mobile screens without overflow! */
-    width: auto;
+    width: 92%;
+    max-width: 340px;
+    height: auto; /* Automatic height based on aspect ratio */
     border: none;
     background: transparent;
     cursor: pointer;
     transition: var(--transition-smooth);
     display: block;
+    margin: 0 auto; /* Perfect centering */
 }
 
 .question-logo-gif:active {
