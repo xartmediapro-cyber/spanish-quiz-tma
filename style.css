@@ -57,8 +57,8 @@ body, html {
 
 .question-logo-gif {
     width: 100%;
-    max-width: 380px; /* 50% larger than 250px is 375px */
-    height: 125px; /* 50% larger than 85px is 127.5px */
+    max-width: 380px;
+    height: 165px; /* Significantly larger size for maximum visibility */
     object-fit: cover; /* Zooms in and crops excess transparent canvas */
     object-position: center;
     border: none;
@@ -426,7 +426,7 @@ body, html {
     flex-direction: column;
     justify-content: flex-start;
     overflow-y: auto;
-    padding-bottom: 140px; /* Padding to let options scroll completely clear of the floating logo */
+    padding-bottom: 185px; /* Large padding to let options scroll completely clear of the larger floating logo */
     -webkit-overflow-scrolling: touch;
 }
 
