@@ -50,21 +50,19 @@ body, html {
 /* --- Centered Question Footer Logo --- */
 .question-logo-link {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    width: 100%;
+    flex: 1;
 }
 
 .question-logo-gif {
-    width: 92%;
-    max-width: 340px;
-    height: auto; /* Automatic height based on aspect ratio */
+    height: 90px; /* Large and clearly visible on the left side */
+    width: auto;
     border: none;
     background: transparent;
     cursor: pointer;
     transition: var(--transition-smooth);
     display: block;
-    margin: 0 auto; /* Perfect centering */
 }
 
 .question-logo-gif:active {
@@ -462,19 +460,11 @@ body, html {
 /* Question Footer */
 .question-footer {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    gap: 12px;
     margin-top: auto;
     padding-top: 16px;
     width: 100%;
-}
-
-.footer-buttons-row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
 }
 
 .btn-back {
