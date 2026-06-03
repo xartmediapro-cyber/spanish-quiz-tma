@@ -426,7 +426,7 @@ body, html {
     flex-direction: column;
     justify-content: flex-start;
     overflow-y: auto;
-    padding-bottom: 16px;
+    padding-bottom: 140px; /* Padding to let options scroll completely clear of the floating logo */
     -webkit-overflow-scrolling: touch;
 }
 
@@ -472,18 +472,22 @@ body, html {
     box-shadow: 0 4px 12px rgba(63, 81, 181, 0.15);
 }
 
-/* Question Footer (Statically placed below scrollable content to prevent overlaps) */
+/* Question Footer (Fixed/pinned at the absolute bottom center) */
 .question-footer {
+    position: absolute;
+    bottom: 8px; /* Fixed distance from the very bottom of the screen */
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
     width: 100%;
-    padding-top: 8px;
-    padding-bottom: 12px;
-    flex-shrink: 0;
+    pointer-events: none; /* Let scroll events pass through empty space */
 }
 
 .question-logo-link {
+    pointer-events: auto; /* Re-enable clicks on the logo link */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -495,7 +499,7 @@ body, html {
     display: flex;
     justify-content: flex-end; /* Align the bulb to the right under the cards */
     margin-top: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 8px;
     width: 100%;
 }
 
