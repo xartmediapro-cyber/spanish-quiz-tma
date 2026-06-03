@@ -433,12 +433,22 @@ body, html {
     -webkit-overflow-scrolling: touch;
 }
 
+.question-title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+    width: 100%;
+}
+
 .question-text {
     font-family: var(--font-heading);
     font-size: 22px;
     font-weight: 700;
     line-height: 1.35;
-    margin-bottom: 24px;
+    margin-bottom: 0;
+    flex: 1;
 }
 
 .options-container {
@@ -536,9 +546,6 @@ body, html {
 }
 
 .hint-icon {
-    position: absolute;
-    top: 16px;
-    right: 24px;
     width: 36px;
     height: 36px;
     border-radius: 50%;
@@ -551,7 +558,7 @@ body, html {
     cursor: pointer;
     transition: var(--transition-smooth);
     flex-shrink: 0;
-    z-index: 100;
+    margin-top: 4px; /* Align with first line of text */
 }
 
 .hint-icon:active {
