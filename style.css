@@ -387,6 +387,13 @@ body, html {
     margin-bottom: 24px;
 }
 
+.question-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
 .level-indicator {
     font-family: var(--font-heading);
     font-size: 13px;
@@ -536,10 +543,10 @@ body, html {
 }
 
 .hint-icon {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.1);
     border: none;
     color: var(--accent-yellow);
     display: flex;
@@ -548,20 +555,16 @@ body, html {
     cursor: pointer;
     transition: var(--transition-smooth);
     flex-shrink: 0;
-    align-self: center;
-    position: relative;
-    z-index: 21;
-    pointer-events: auto;
 }
 
 .hint-icon:active {
     transform: scale(0.9) rotate(15deg);
-    background: rgba(255, 255, 255, 0.18);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .hint-icon svg {
-    width: 22px;
-    height: 22px;
+    width: 18px;
+    height: 18px;
 }
 
 /* --- Screen 4: Results Screen --- */
