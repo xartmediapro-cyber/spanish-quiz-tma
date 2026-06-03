@@ -52,10 +52,11 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .question-logo-gif {
-    height: 160px; /* 200% of 80px! */
+    height: 120px; /* Highly visible size, perfect on mobile screens without overflow! */
     width: auto;
     border: none;
     background: transparent;
@@ -459,10 +460,19 @@ body, html {
 /* Question Footer */
 .question-footer {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
     align-items: center;
+    gap: 12px;
     margin-top: auto;
-    padding-top: 20px;
+    padding-top: 16px;
+    width: 100%;
+}
+
+.footer-buttons-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
 }
 
 .btn-back {
