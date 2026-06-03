@@ -7,19 +7,27 @@ const API_URL = 'https://151.243.177.120.sslip.io:8444/api/log';
 // Helper function to open Telegram links correctly inside and outside Telegram
 function openTgLink(url) {
     const nativePlatforms = ['ios', 'android', 'tdesktop', 'macos'];
-    const isInsideTelegramNative = tg && tg.platform && nativePlatforms.includes(tg.platform) && tg.initData;
+    const isInsideTelegramNative = tg && tg.platform && nativePlatforms.includes(tg.platform);
     
     if (isInsideTelegramNative) {
         try {
+            // First try to open it as an internal Telegram link
             tg.openTelegramLink(url);
         } catch (e) {
-            console.error("tg.openTelegramLink failed, using fallback", e);
-            window.open(url, '_blank');
+            console.error("tg.openTelegramLink failed, falling back to tg.openLink", e);
+            try {
+                // If that fails, try to open it via Telegram's external link opener
+                tg.openLink(url);
+            } catch (err) {
+                console.error("tg.openLink failed, falling back to window.open", err);
+                window.open(url, '_blank');
+            }
         }
     } else {
         window.open(url, '_blank');
     }
 }
+
 
 
 function updatePlatformClass() {
