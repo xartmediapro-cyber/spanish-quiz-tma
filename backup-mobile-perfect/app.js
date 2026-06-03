@@ -4,18 +4,6 @@ const tg = window.Telegram ? window.Telegram.WebApp : null;
 // Backend Log URL (replace with domain if configured, defaults to IP on port 3000)
 const API_URL = 'https://151.243.177.120.sslip.io:8444/api/log';
 
-function updatePlatformClass() {
-    const desktopPlatforms = ['tdesktop', 'macos', 'web', 'weba', 'webk'];
-    const isTelegramDesktop = tg && tg.platform && desktopPlatforms.includes(tg.platform);
-    const isWideScreen = window.innerWidth > 480;
-    
-    if (isTelegramDesktop || isWideScreen) {
-        document.body.classList.add('platform-desktop');
-    } else {
-        document.body.classList.remove('platform-desktop');
-    }
-}
-
 if (tg) {
     tg.ready();
     tg.expand();
@@ -23,9 +11,6 @@ if (tg) {
         tg.HapticFeedback.impactOccurred('light');
     }
 }
-
-updatePlatformClass();
-window.addEventListener('resize', updatePlatformClass);
 
 // Session details for analytics
 const startTime = Date.now();
