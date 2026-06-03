@@ -357,19 +357,42 @@ btnCloseModal.addEventListener('click', () => {
 });
 
 let startY = 0;
-hintModal.addEventListener('touchstart', (e) => {
-    startY = e.touches[0].clientY;
-});
-hintModal.addEventListener('touchend', (e) => {
-    const endY = e.changedTouches[0].clientY;
-    if (endY - startY > 80) {
-        hintModal.classList.remove('active');
-    }
-});
+let currentY = 0;
+const modalSheet = document.querySelector('.modal-sheet');
+
+if (modalSheet) {
+    modalSheet.addEventListener('touchstart', (e) => {
+        startY = e.touches[0].clientY;
+        currentY = startY;
+        modalSheet.style.transition = 'none'; // Disable animations during drag
+    }, { passive: true });
+
+    modalSheet.addEventListener('touchmove', (e) => {
+        currentY = e.touches[0].clientY;
+        const diffY = currentY - startY;
+        if (diffY > 0) {
+            modalSheet.style.transform = `translateY(${diffY}px)`; // Track finger drag down
+        }
+    }, { passive: true });
+
+    modalSheet.addEventListener('touchend', () => {
+        modalSheet.style.transition = ''; // Restore default CSS transition
+        const diffY = currentY - startY;
+        if (diffY > 80) {
+            hintModal.classList.remove('active'); // Close modal if swiped down far enough
+        }
+        modalSheet.style.transform = ''; // Reset inline transform for CSS transition
+        startY = 0;
+        currentY = 0;
+    });
+}
 
 hintModal.addEventListener('click', (e) => {
     if (e.target === hintModal) {
         hintModal.classList.remove('active');
+        if (modalSheet) {
+            modalSheet.style.transform = '';
+        }
     }
 });
 

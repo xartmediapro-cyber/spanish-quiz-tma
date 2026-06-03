@@ -52,12 +52,14 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .question-logo-gif {
-    width: 250px; /* Exact crop box width */
-    height: 85px; /* Shorter height to save vertical layout space */
-    object-fit: cover; /* Zooms in and crops excess top/bottom/left/right empty canvas */
+    width: 100%;
+    max-width: 380px; /* 50% larger than 250px is 375px */
+    height: 125px; /* 50% larger than 85px is 127.5px */
+    object-fit: cover; /* Zooms in and crops excess transparent canvas */
     object-position: center;
     border: none;
     background: transparent;
@@ -171,6 +173,10 @@ body, html {
     pointer-events: auto;
 }
 
+#screen-question {
+    overflow: hidden;
+}
+
 /* --- Screen 1: Welcome/Start --- */
 #screen-welcome {
     justify-content: center;
@@ -271,10 +277,14 @@ body, html {
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease;
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
 }
 
 .btn-primary:hover .arrow-icon {
-    transform: translateX(4px);
+    transform: translateY(-50%) translateX(4px);
 }
 
 .btn-secondary {
@@ -415,6 +425,9 @@ body, html {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    overflow-y: auto;
+    padding-bottom: 16px;
+    -webkit-overflow-scrolling: touch;
 }
 
 .question-text {
@@ -459,25 +472,22 @@ body, html {
     box-shadow: 0 4px 12px rgba(63, 81, 181, 0.15);
 }
 
-/* Question Footer (Fixed/pinned at the absolute bottom center) */
+/* Question Footer (Statically placed below scrollable content to prevent overlaps) */
 .question-footer {
-    position: absolute;
-    bottom: 8px; /* Fixed distance from the very bottom of the screen */
-    left: 0;
-    right: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 10;
     width: 100%;
-    pointer-events: none; /* Let scroll events pass through empty space */
+    padding-top: 8px;
+    padding-bottom: 12px;
+    flex-shrink: 0;
 }
 
 .question-logo-link {
-    pointer-events: auto; /* Re-enable clicks on the logo link */
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 /* Hint Button Container right under options cards */
@@ -485,7 +495,7 @@ body, html {
     display: flex;
     justify-content: flex-end; /* Align the bulb to the right under the cards */
     margin-top: 12px;
-    margin-bottom: 95px; /* Safety margin so scrolling content is not blocked by the fixed logo */
+    margin-bottom: 16px;
     width: 100%;
 }
 
