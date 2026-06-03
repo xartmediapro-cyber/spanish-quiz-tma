@@ -404,16 +404,16 @@ body, html {
 
 .progress-bar-bg {
     flex: 1;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 4px;
+    height: 4px;
+    background: transparent; /* "Вырезанный" - transparent track background */
+    border-radius: 2px;
     overflow: hidden;
 }
 
 .progress-bar-fill {
     height: 100%;
     background: var(--text-white);
-    border-radius: 4px;
+    border-radius: 2px;
     transition: width 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
