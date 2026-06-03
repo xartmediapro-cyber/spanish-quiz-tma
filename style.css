@@ -55,7 +55,7 @@ body, html {
 }
 
 .question-logo-gif {
-    height: 80px; /* Larger size! */
+    height: 160px; /* 200% of 80px! */
     width: auto;
     border: none;
     background: transparent;
