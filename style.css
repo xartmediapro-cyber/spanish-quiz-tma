@@ -56,13 +56,14 @@ body, html {
 }
 
 .question-logo-gif {
-    height: 90px; /* Large and clearly visible on the left side */
+    height: 140px; /* Large and highly visible */
     width: auto;
     border: none;
     background: transparent;
     cursor: pointer;
     transition: var(--transition-smooth);
     display: block;
+    margin-left: -50px; /* Shift left to crop out empty transparent space of the 16:9 canvas */
 }
 
 .question-logo-gif:active {
