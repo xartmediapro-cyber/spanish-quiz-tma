@@ -2,7 +2,7 @@
 const tg = window.Telegram ? window.Telegram.WebApp : null;
 
 // Backend Log URL (replace with domain if configured, defaults to IP on port 3000)
-const API_URL = 'http://85.235.205.59:3000/api/log';
+const API_URL = 'http://151.243.177.120:3000/api/log';
 
 if (tg) {
     tg.ready();
