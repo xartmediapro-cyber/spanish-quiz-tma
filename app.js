@@ -6,13 +6,21 @@ const API_URL = 'https://151.243.177.120.sslip.io:8444/api/log';
 
 // Helper function to open Telegram links correctly inside and outside Telegram
 function openTgLink(url) {
-    const isInsideTelegram = tg && tg.platform && tg.platform !== 'unknown';
-    if (isInsideTelegram) {
-        tg.openTelegramLink(url);
+    const nativePlatforms = ['ios', 'android', 'tdesktop', 'macos'];
+    const isInsideTelegramNative = tg && tg.platform && nativePlatforms.includes(tg.platform) && tg.initData;
+    
+    if (isInsideTelegramNative) {
+        try {
+            tg.openTelegramLink(url);
+        } catch (e) {
+            console.error("tg.openTelegramLink failed, using fallback", e);
+            window.open(url, '_blank');
+        }
     } else {
         window.open(url, '_blank');
     }
 }
+
 
 function updatePlatformClass() {
     const desktopPlatforms = ['tdesktop', 'macos', 'web', 'weba', 'webk'];
