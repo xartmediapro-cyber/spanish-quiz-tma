@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Quiztime: España</title>
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <!-- Telegram WebApp SDK -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app-container">
+
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Screen 1: Welcome/Start -->
+            <section id="screen-welcome" class="screen active">
+                <div class="welcome-hero">
+                    <div class="illustration-3d main-hero-illustration">
+                        <!-- Animated 3D-looking Spain/Sun SVG -->
+                        <svg viewBox="0 0 300 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Background glow -->
+                            <circle cx="150" cy="150" r="120" fill="url(#hero-glow)" opacity="0.6" />
+                            <!-- Palm shadow -->
+                            <g class="float-animation">
+                                <!-- Spanish Sun -->
+                                <circle cx="150" cy="120" r="45" fill="url(#sun-grad)" filter="url(#shadow-filter)"/>
+                                <!-- Sun rays -->
+                                <path d="M150 55V65M150 175V185M85 120H95M205 120H215M104 74L111 81M189 159L196 166M104 166L111 159M189 81L196 74" stroke="#FFA726" stroke-width="6" stroke-linecap="round"/>
+                            </g>
+                            <!-- Earth/Globe base -->
+                            <g class="spin-animation">
+                                <circle cx="150" cy="190" r="75" fill="url(#globe-grad)" filter="url(#shadow-filter)" />
+                                <!-- Continents shape simplified -->
+                                <path d="M120 150C110 160 115 180 100 190C95 195 85 200 80 210C90 220 120 225 130 220C140 215 150 200 160 210C170 220 180 230 190 225C200 220 215 210 220 190C225 170 210 160 200 155C190 150 170 160 160 150C150 140 140 145 130 140C125 135 120 140 120 150Z" fill="#81C784" />
+                            </g>
+                            <!-- Floating Coins -->
+                            <g class="bounce-animation-1">
+                                <circle cx="70" cy="120" r="14" fill="url(#coin-grad)" filter="url(#shadow-filter)" />
+                                <circle cx="70" cy="120" r="10" fill="#FFB300" />
+                            </g>
+                            <g class="bounce-animation-2">
+                                <circle cx="230" cy="150" r="18" fill="url(#coin-grad)" filter="url(#shadow-filter)" />
+                                <circle cx="230" cy="150" r="13" fill="#FFB300" />
+                            </g>
+                            <g class="bounce-animation-3">
+                                <circle cx="210" cy="90" r="12" fill="url(#coin-grad)" filter="url(#shadow-filter)" />
+                                <circle cx="210" cy="90" r="8" fill="#FFB300" />
+                            </g>
+
+                            <!-- Definitions -->
+                            <defs>
+                                <radialGradient id="hero-glow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" transform="translate(150 150) rotate(90) scale(120)">
+                                    <stop stop-color="#FFD54F" stop-opacity="0.4"/>
+                                    <stop offset="1" stop-color="#3244e4" stop-opacity="0"/>
+                                </radialGradient>
+                                <linearGradient id="sun-grad" x1="150" y1="75" x2="150" y2="165" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FFB300"/>
+                                    <stop offset="1" stop-color="#E65100"/>
+                                </linearGradient>
+                                <linearGradient id="globe-grad" x1="150" y1="115" x2="150" y2="265" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#4FC3F7"/>
+                                    <stop offset="1" stop-color="#0288D1"/>
+                                </linearGradient>
+                                <linearGradient id="coin-grad" x1="0" y1="0" x2="1" y2="1" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#FFE082"/>
+                                    <stop offset="1" stop-color="#FF8F00"/>
+                                </linearGradient>
+                                <filter id="shadow-filter" x="-10%" y="-10%" width="120%" height="120%">
+                                    <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000" flood-opacity="0.15"/>
+                                </filter>
+                            </defs>
+                        </svg>
+                    </div>
+                    
+                    <h1 class="welcome-title">Испанский Тест-драйв</h1>
+                    <p class="welcome-subtitle">Узнай, готов ли твой мозг к переезду в Испанию и новой реальности</p>
+                    
+                    <button class="btn-primary start-quiz-trigger">
+                        <span>Начать тест</span>
+                        <div class="arrow-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Screen 3: Question Screen -->
+            <section id="screen-question" class="screen">
+                <div class="question-header">
+                    <div class="level-indicator" id="question-level">Уровень 1</div>
+                    <div class="progress-container">
+                        <div class="progress-bar-bg">
+                            <div class="progress-bar-fill" id="question-progress" style="width: 20%;"></div>
+                        </div>
+                        <span class="progress-text" id="question-counter">01 / 05</span>
+                    </div>
+                </div>
+
+                <div class="question-body">
+                    <h3 class="question-text" id="question-title">Грузится вопрос...</h3>
+                    
+                    <div class="options-container" id="question-options">
+                        <!-- Dynamic options cards -->
+                    </div>
+                </div>
+
+                <footer class="question-footer">
+                    <button class="btn-back" id="btn-prev-question">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 12H5M5 12L12 19M5 12L12 5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </button>
+                    
+                    <div class="hint-icon" id="btn-hint" title="Посмотреть инсайд">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 21H15M12 18V21M12 3C8.13 3 5 6.13 5 10C5 12.38 6.19 14.47 8 15.74V17C8 17.55 8.45 18 9 18H15C15.55 18 16 17.55 16 17V15.74C17.81 14.47 19 12.38 19 10C19 6.13 15.87 3 12 3Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
+                </footer>
+            </section>
+
+            <!-- Screen 4: Results Screen -->
+            <section id="screen-results" class="screen">
+                <div class="results-container">
+                    <h2 class="section-title text-center">Твой результат</h2>
+                    
+                    <!-- SVG Gauge Chart -->
+                    <div class="gauge-wrapper">
+                        <svg class="gauge" viewBox="0 0 200 120">
+                            <!-- Gauge background arc -->
+                            <path d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="#E0E6ED" stroke-width="12" stroke-linecap="round" />
+                            <!-- Gauge colored arc -->
+                            <path id="gauge-fill" d="M 20 100 A 80 80 0 0 1 180 100" fill="none" stroke="url(#gauge-grad)" stroke-width="12" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251" />
+                            <defs>
+                                <linearGradient id="gauge-grad" x1="0" y1="0" x2="1" y2="0">
+                                    <stop stop-color="#FF5252" />
+                                    <stop offset="0.5" stop-color="#FFC107" />
+                                    <stop offset="1" stop-color="#4CAF50" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                        <div class="gauge-center">
+                            <span class="score-number" id="result-score-num">0</span>
+                            <span class="score-max" id="result-score-label">баллов</span>
+                        </div>
+                    </div>
+
+                    <div class="result-badge" id="result-title">Загрузка...</div>
+                    
+                    <div class="result-card">
+                        <p class="result-description" id="result-description">
+                            Здесь будет твое детальное психологическое описание после прохождения теста.
+                        </p>
+                    </div>
+
+                    <!-- Call To Action -->
+                    <button class="btn-primary cta-action-trigger ripple-btn">
+                        <span>Записаться на разбор</span>
+                        <div class="arrow-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                    </button>
+                    
+                    <button class="btn-secondary restart-quiz-trigger" style="margin-top: 12px; background: transparent; border: 1.5px solid rgba(255,255,255,0.25); color: #FFF;">Пройти заново</button>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Inside/Hint Modal Sheet -->
+        <div class="modal-overlay" id="hint-modal">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <div class="modal-header">
+                    <h4 class="modal-title">Культурный инсайд 🇪🇸</h4>
+                    <button class="modal-close-btn" id="btn-close-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="hint-content">Испанцы не любят спешить. Маñana означает, что ваше дело обязательно сделают, но не факт, что на этой неделе.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
